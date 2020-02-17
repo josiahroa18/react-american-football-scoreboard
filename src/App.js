@@ -1,43 +1,63 @@
 //TODO: STEP 1 - Import the useState hook.
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import BottomRow from "./BottomRow";
+import Home from "./components/Home";
+import Away from "./components/Away";
 
-function App() {
+class App extends React.Component {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
+  constructor(props){
+    super(props);
+    this.state = {
+      homeScore: 0,
+      awayScore: 0,
+      quarter: 0
+    };
+  }
 
-  return (
-    <div className="container">
-      <section className="scoreboard">
-        <div className="topRow">
-          <div className="home">
-            <h2 className="home__name">Lions</h2>
+  handleClick(teamName, scoreIncrease){
+    if(teamName === "home"){
+      this.setState({homeScore: this.state.homeScore + scoreIncrease});
+    }else{
+      this.setState({awayScore: this.state.awayScore + scoreIncrease});
+    }
+  }
 
-            {/* TODO STEP 3 - We need to change the hardcoded values in these divs to accept dynamic values from our state. */}
+  handleQuarter(){
+    if(this.state.quarter < 4){
+      this.setState({quarter: this.state.quarter + 1});
+    }
+  }
 
-            <div className="home__score">32</div>
+  render(){
+    return (
+      <div className="container">
+        <section className="scoreboard">
+          <div className="topRow">
+            <Home homeScore={this.state.homeScore}/>
+            <div className="timer">00:03</div>
+            <Away awayScore={this.state.awayScore}/>
           </div>
-          <div className="timer">00:03</div>
-          <div className="away">
-            <h2 className="away__name">Tigers</h2>
-            <div className="away__score">32</div>
+          <BottomRow quarter={this.state.quarter}/>
+        </section>
+        <section className="buttons">
+          <div className="homeButtons">
+            {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
+            <button onClick={this.handleClick.bind(this, "home", 6)} className="homeButtons__touchdown">Home Touchdown</button>
+            <button onClick={this.handleClick.bind(this, "home", 1)} className="homeButtons__fieldGoal">Home Field Goal</button>
           </div>
-        </div>
-        <BottomRow />
-      </section>
-      <section className="buttons">
-        <div className="homeButtons">
-          {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
-          <button className="homeButtons__touchdown">Home Touchdown</button>
-          <button className="homeButtons__fieldGoal">Home Field Goal</button>
-        </div>
-        <div className="awayButtons">
-          <button className="awayButtons__touchdown">Away Touchdown</button>
-          <button className="awayButtons__fieldGoal">Away Field Goal</button>
-        </div>
-      </section>
-    </div>
-  );
+          <div className="updateButton">
+            <button onClick={this.handleQuarter.bind(this)} className="update_quarter">Update Quarter</button>
+          </div>
+          <div className="awayButtons">
+            <button onClick={this.handleClick.bind(this, "away", 6)} className="awayButtons__touchdown">Away Touchdown</button>
+            <button onClick={this.handleClick.bind(this, "away", 1)} className="awayButtons__fieldGoal">Away Field Goal</button>
+          </div>
+        </section>
+      </div>
+    );
+  }
 }
 
 export default App;
