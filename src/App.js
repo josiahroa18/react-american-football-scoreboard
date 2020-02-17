@@ -1,18 +1,16 @@
-//TODO: STEP 1 - Import the useState hook.
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
-import BottomRow from "./BottomRow";
+import BottomRow from "./components/BottomRow";
 import Home from "./components/Home";
 import Away from "./components/Away";
 
 class App extends React.Component {
-  //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
   constructor(props){
     super(props);
     this.state = {
       homeScore: 0,
       awayScore: 0,
-      quarter: 0
+      quarter: 1
     };
   }
 
@@ -44,15 +42,15 @@ class App extends React.Component {
         <section className="buttons">
           <div className="homeButtons">
             {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
-            <button onClick={this.handleClick.bind(this, "home", 6)} className="homeButtons__touchdown">Home Touchdown</button>
-            <button onClick={this.handleClick.bind(this, "home", 1)} className="homeButtons__fieldGoal">Home Field Goal</button>
+            <button onClick={this.handleClick.bind(this, "home", 7)} className="homeButtons__touchdown">Home Touchdown</button>
+            <button onClick={this.handleClick.bind(this, "home", 3)} className="homeButtons__fieldGoal">Home Field Goal</button>
           </div>
           <div className="updateButton">
             <button onClick={this.handleQuarter.bind(this)} className="update_quarter">Update Quarter</button>
           </div>
           <div className="awayButtons">
-            <button onClick={this.handleClick.bind(this, "away", 6)} className="awayButtons__touchdown">Away Touchdown</button>
-            <button onClick={this.handleClick.bind(this, "away", 1)} className="awayButtons__fieldGoal">Away Field Goal</button>
+            <button onClick={this.handleClick.bind(this, "away", 7)} className="awayButtons__touchdown">Away Touchdown</button>
+            <button onClick={this.handleClick.bind(this, "away", 3)} className="awayButtons__fieldGoal">Away Field Goal</button>
           </div>
         </section>
       </div>
